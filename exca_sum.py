@@ -12,11 +12,13 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_SumWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
+
         MainWindow.resize(400, 400)
         MainWindow.setMinimumSize(QtCore.QSize(400, 400))
         MainWindow.setMaximumSize(QtCore.QSize(400, 400))
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
         self.centralwidget.setObjectName("centralwidget")
+
         self.label_summary = QtWidgets.QLabel(parent=self.centralwidget)
         self.label_summary.setGeometry(QtCore.QRect(140, 30, 121, 61))
         font = QtGui.QFont()
@@ -24,27 +26,33 @@ class Ui_SumWindow(object):
         font.setUnderline(True)
         self.label_summary.setFont(font)
         self.label_summary.setObjectName("label_summary")
+
         self.input_income = QtWidgets.QLineEdit(parent=self.centralwidget)
         self.input_income.setGeometry(QtCore.QRect(90, 100, 113, 20))
         self.input_income.setObjectName("input_income")
+
         self.input_goal = QtWidgets.QLineEdit(parent=self.centralwidget)
         self.input_goal.setGeometry(QtCore.QRect(90, 180, 113, 20))
         self.input_goal.setObjectName("input_goal")
+
         self.label_goal = QtWidgets.QLabel(parent=self.centralwidget)
         self.label_goal.setGeometry(QtCore.QRect(30, 180, 61, 21))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.label_goal.setFont(font)
         self.label_goal.setObjectName("label_goal")
+
         self.label_income = QtWidgets.QLabel(parent=self.centralwidget)
         self.label_income.setGeometry(QtCore.QRect(20, 100, 71, 21))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.label_income.setFont(font)
         self.label_income.setObjectName("label_income")
+
         self.button_upda = QtWidgets.QPushButton(parent=self.centralwidget)
         self.button_upda.setGeometry(QtCore.QRect(250, 120, 91, 51))
         self.button_upda.setObjectName("button_upda")
+
         self.label_month = QtWidgets.QLabel(parent=self.centralwidget)
         self.label_month.setGeometry(QtCore.QRect(30, 250, 171, 31))
         font = QtGui.QFont()
@@ -53,6 +61,7 @@ class Ui_SumWindow(object):
         self.label_month.setFrameShape(QtWidgets.QFrame.Shape.Box)
         self.label_month.setLineWidth(2)
         self.label_month.setObjectName("label_month")
+
         self.label_time = QtWidgets.QLabel(parent=self.centralwidget)
         self.label_time.setGeometry(QtCore.QRect(30, 280, 171, 31))
         font = QtGui.QFont()
@@ -61,6 +70,7 @@ class Ui_SumWindow(object):
         self.label_time.setFrameShape(QtWidgets.QFrame.Shape.Box)
         self.label_time.setLineWidth(2)
         self.label_time.setObjectName("label_time")
+
         self.label_status = QtWidgets.QLabel(parent=self.centralwidget)
         self.label_status.setGeometry(QtCore.QRect(30, 310, 171, 31))
         font = QtGui.QFont()
@@ -69,6 +79,7 @@ class Ui_SumWindow(object):
         self.label_status.setFrameShape(QtWidgets.QFrame.Shape.Box)
         self.label_status.setLineWidth(2)
         self.label_status.setObjectName("label_status")
+
         self.label_out_month = QtWidgets.QLabel(parent=self.centralwidget)
         self.label_out_month.setGeometry(QtCore.QRect(200, 250, 171, 31))
         font = QtGui.QFont()
@@ -78,6 +89,7 @@ class Ui_SumWindow(object):
         self.label_out_month.setLineWidth(2)
         self.label_out_month.setText("")
         self.label_out_month.setObjectName("label_out_month")
+
         self.label_out_time = QtWidgets.QLabel(parent=self.centralwidget)
         self.label_out_time.setGeometry(QtCore.QRect(200, 280, 171, 31))
         font = QtGui.QFont()
@@ -87,6 +99,7 @@ class Ui_SumWindow(object):
         self.label_out_time.setLineWidth(2)
         self.label_out_time.setText("")
         self.label_out_time.setObjectName("label_out_time")
+
         self.label_out_status = QtWidgets.QLabel(parent=self.centralwidget)
         self.label_out_status.setGeometry(QtCore.QRect(200, 310, 171, 31))
         font = QtGui.QFont()
@@ -96,23 +109,28 @@ class Ui_SumWindow(object):
         self.label_out_status.setLineWidth(2)
         self.label_out_status.setText("")
         self.label_out_status.setObjectName("label_out_status")
+
         self.input_save = QtWidgets.QLineEdit(parent=self.centralwidget)
         self.input_save.setGeometry(QtCore.QRect(90, 140, 113, 20))
         self.input_save.setText("")
         self.input_save.setObjectName("input_save")
+
         self.label_savings = QtWidgets.QLabel(parent=self.centralwidget)
         self.label_savings.setGeometry(QtCore.QRect(10, 140, 81, 21))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.label_savings.setFont(font)
         self.label_savings.setObjectName("label_savings")
+
         self.button_return = QtWidgets.QPushButton(parent=self.centralwidget)
         self.button_return.setGeometry(QtCore.QRect(10, 10, 91, 61))
         self.button_return.setObjectName("button_return")
+
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(parent=MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 400, 21))
         self.menubar.setObjectName("menubar")
+
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(parent=MainWindow)
         self.statusbar.setObjectName("statusbar")
