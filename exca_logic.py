@@ -29,6 +29,8 @@ class Logic_Input(QMainWindow, Ui_InputWindow):
                             break
                     else:
                         self.label_error.setText('ERROR: User Doesnt Exist')
+        else:
+            self.label_error.setText('No Users Exist Yet')
     def create(self):
         Logic_Input.login_list = [self.input_username.text(), self.input_password.text()]
         repeat = False
@@ -111,18 +113,21 @@ class Logic_List(QMainWindow, Ui_ListWindow):
             row += 1
 
     def remove_expense(self):
-        row_num = int(self.input_row_rem.text())
-        Logic_List.expense_list.pop(row_num - 1)
-        row = 0
-        self.table_expenses.setRowCount(len(Logic_List.expense_list))
-        for exp in Logic_List.expense_list:
-            self.table_expenses.setItem(row, 0, QtWidgets.QTableWidgetItem(exp[0]))
-            self.table_expenses.setItem(row, 1, QtWidgets.QTableWidgetItem(f'{str(exp[1])}$'))
-            self.table_expenses.setItem(row, 2, QtWidgets.QTableWidgetItem(str(exp[2])))
-            self.table_expenses.setItem(row, 3, QtWidgets.QTableWidgetItem(f'{str(exp[3])}$'))
-            self.table_expenses.setItem(row, 4, QtWidgets.QTableWidgetItem(f'{str(exp[4])}$'))
-            print(row)
-            row += 1
+        try:
+            row_num = int(self.input_row_rem.text())
+            Logic_List.expense_list.pop(row_num - 1)
+            row = 0
+            self.table_expenses.setRowCount(len(Logic_List.expense_list))
+            for exp in Logic_List.expense_list:
+                self.table_expenses.setItem(row, 0, QtWidgets.QTableWidgetItem(exp[0]))
+                self.table_expenses.setItem(row, 1, QtWidgets.QTableWidgetItem(f'{str(exp[1])}$'))
+                self.table_expenses.setItem(row, 2, QtWidgets.QTableWidgetItem(str(exp[2])))
+                self.table_expenses.setItem(row, 3, QtWidgets.QTableWidgetItem(f'{str(exp[3])}$'))
+                self.table_expenses.setItem(row, 4, QtWidgets.QTableWidgetItem(f'{str(exp[4])}$'))
+                print(row)
+                row += 1
+        except:
+            self.input_row_rem.setText('Must be Int')
 
     def save(self):
         with open(f'files\\{Logic_Input.login_list[0]}.csv', 'w', newline='') as csv_file:
@@ -146,55 +151,57 @@ class Logic_Sum(QMainWindow, Ui_SumWindow):
         self.application.exec()
 
     def update(self):
-        monthly_income = float(self.input_income.text())
-        savings = float(self.input_save.text())
-        goal = float(self.input_goal.text())
+        try:
+            monthly_income = float(self.input_income.text())
+            savings = float(self.input_save.text())
+            goal = float(self.input_goal.text())
 
-        monthly_expense = 0
-        for item in Logic_List.expense_list:
-            monthly_expense += item[3]
-        monthly_profit = monthly_income - monthly_expense
-        self.label_out_month.setText(f'{str(monthly_profit)}$')
+            monthly_expense = 0
+            for item in Logic_List.expense_list:
+                monthly_expense += item[3]
+            monthly_profit = monthly_income - monthly_expense
+            self.label_out_month.setText(f'{str(monthly_profit)}$')
 
-        goal_time = (goal - savings) // monthly_profit
-        year_time = 0
-        if goal % monthly_profit != 0:
-            goal_time += 1
-        if goal_time // 12 == 0:
-            month_time = int(goal_time % 12)
-            if month_time == 1:
-                self.label_out_time.setText(f'{str(month_time)} month')
+            goal_time = (goal - savings) // monthly_profit
+            year_time = 0
+            if goal % monthly_profit != 0:
+                goal_time += 1
+            if goal_time // 12 == 0:
+                month_time = int(goal_time % 12)
+                if month_time == 1:
+                    self.label_out_time.setText(f'{str(month_time)} month')
+                else:
+                    self.label_out_time.setText(f'{str(month_time)} months')
+            elif goal_time % 12 != 0:
+                year_time = int(goal_time // 12)
+                month_time = int(goal_time % 12)
+                if year_time == 1 and month_time == 1:
+                    self.label_out_time.setText(f'{str(year_time)} year, {str(month_time)} month')
+                elif year_time == 1:
+                    self.label_out_time.setText(f'{str(year_time)} year, {str(month_time)} months')
+                elif month_time == 1:
+                    self.label_out_time.setText(f'{str(year_time)} years, {str(month_time)} month')
+                else:
+                    self.label_out_time.setText(f'{str(year_time)} years, {str(month_time)} months')
             else:
-                self.label_out_time.setText(f'{str(month_time)} months')
-        elif goal_time % 12 != 0:
-            year_time = int(goal_time // 12)
-            month_time = int(goal_time % 12)
-            if year_time == 1 and month_time == 1:
-                self.label_out_time.setText(f'{str(year_time)} year, {str(month_time)} month')
-            elif year_time == 1:
-                self.label_out_time.setText(f'{str(year_time)} year, {str(month_time)} months')
-            elif month_time == 1:
-                self.label_out_time.setText(f'{str(year_time)} years, {str(month_time)} month')
-            else:
-                self.label_out_time.setText(f'{str(year_time)} years, {str(month_time)} months')
-        else:
-            year_time = int(goal_time // 12)
-            if year_time == 1:
-                self.label_out_time.setText(f'{str(year_time)} year')
-            else:
-                self.label_out_time.setText(f'{str(year_time)} years')
+                year_time = int(goal_time // 12)
+                if year_time == 1:
+                    self.label_out_time.setText(f'{str(year_time)} year')
+                else:
+                    self.label_out_time.setText(f'{str(year_time)} years')
 
-        if year_time == 0:
-            self.label_out_status.setText('Excellent')
-            status = 2
-        elif year_time <= 2:
-            self.label_out_status.setText('Ok')
-            status = 1
-        elif year_time < 10:
-            self.label_out_status.setText('Bad')
-            status = 0
-        else:
-            self.label_out_status.setText('EMERGENCY')
-            status = -1
-
+            if year_time == 0:
+                self.label_out_status.setText('Excellent')
+                status = 2
+            elif year_time <= 2:
+                self.label_out_status.setText('Ok')
+                status = 1
+            elif year_time < 10:
+                self.label_out_status.setText('Bad')
+                status = 0
+            else:
+                self.label_out_status.setText('EMERGENCY')
+                status = -1
+        except:
+            self.input_income.setText('Must be number')
 
